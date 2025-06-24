@@ -1,14 +1,13 @@
 package com.devsuperior.dsmeta.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
+import com.devsuperior.dsmeta.dto.SaleReportDTO;
 import com.devsuperior.dsmeta.services.SaleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/sales")
@@ -23,15 +22,19 @@ public class SaleController {
 		return ResponseEntity.ok(dto);
 	}
 
-	@GetMapping(value = "/report")
+	@GetMapping(value = "/summary")
 	public ResponseEntity<?> getReport() {
 		// TODO
 		return null;
 	}
 
-	@GetMapping(value = "/summary")
-	public ResponseEntity<?> getSummary() {
-		// TODO
-		return null;
+	@GetMapping(value = "/report")
+	public ResponseEntity<Page<SaleReportDTO>> getReport(
+			Pageable pageable,
+			@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "minDate", required = false) String txtMinDate,
+			@RequestParam(name = "maxDate", required = false) String txtMaxDate) {
+
+		return ResponseEntity.ok(service.getReport(name, txtMinDate, txtMaxDate,pageable));
 	}
 }
