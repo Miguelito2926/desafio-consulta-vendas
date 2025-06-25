@@ -1,7 +1,5 @@
 package com.devsuperior.dsmeta.dto;
 
-import com.devsuperior.dsmeta.projection.SaleProjection;
-
 import java.time.LocalDate;
 
 public class SaleReportDTO {
@@ -19,13 +17,6 @@ public class SaleReportDTO {
         this.date = date;
         this.amount = amount;
         this.sellerName = sellerName;
-    }
-
-    public SaleReportDTO(SaleProjection projection) {
-        id = projection.getId();
-        date = projection.getDate();
-        amount = projection.getAmount();
-        sellerName = projection.getSellerName();
     }
 
     public Long getId() {

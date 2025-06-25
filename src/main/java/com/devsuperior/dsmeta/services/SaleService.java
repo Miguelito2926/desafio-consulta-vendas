@@ -2,6 +2,7 @@ package com.devsuperior.dsmeta.services;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.dto.SaleReportDTO;
+import com.devsuperior.dsmeta.dto.SaleSummaryDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 import com.devsuperior.dsmeta.utils.DateRangeService;
@@ -33,5 +34,11 @@ public class SaleService {
 
 		LocalDate[] dates = dateRangeService.calculateDateRange(txtMinDate, txtMaxDate);
 		return repository.searchReport(name, dates[0], dates[1], pageable);
+	}
+
+	public List<SaleSummaryDTO> getSummary(String txtMinDate, String txtMaxDate) {
+
+		LocalDate[] dates = dateRangeService.calculateDateRange(txtMinDate, txtMaxDate);
+		return repository.getSalesAmountGroupedBySeller(dates[0], dates[1]);
 	}
 }
